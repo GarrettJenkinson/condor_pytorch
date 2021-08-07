@@ -6,6 +6,7 @@
 
 from .version import __version__
 
+from .activations import ordinal_softmax
 from .dataset import label_to_levels
 from .dataset import levels_from_labelbatch
 from .dataset import proba_to_label
@@ -18,12 +19,12 @@ from .losses import CondorOrdinalCrossEntropy
 # if somebody does "from somepackage import *", this is what they will
 # be able to access:
 __all__ = [
+  'ordinal_softmax',
   'label_to_levels',
   'levels_from_labelbatch',
   'proba_to_label',
   'logits_to_label',
   'CondorOrdinalCrossEntropy',
 #  'MeanAbsoluteErrorLabels',
-#  'ordinal_softmax',
 #  'CondorOrdinalEncoder',
 ]
