@@ -22,7 +22,7 @@ It is compatible with any state-of-the-art deep neural network architecture, req
 This repository implements the CONDOR functionality (neural network layer, loss function, and dataset utilities) for convenient use. 
 Examples are provided via the "Tutorials" that can be found on the documentation website at [https://GarrettJenkinson.github.io/condor_pytorch](https://GarrettJenkinson.github.io/condor_pytorch).
 
-We also have condor [implemented for Tensorflow](https://github.com/GarrettJenkinson/condor_ordinal).
+We also have [CONDOR implemented for Tensorflow](https://github.com/GarrettJenkinson/condor_tensorflow).
 
 ---
 
