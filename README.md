@@ -1,5 +1,5 @@
 
-<img src="docs/img/condor-logo.png" width=300>
+<img src="docs/img/condor.png" width=300>
 
 **CONDOR pytorch implementation for ordinal regression with deep neural networks.**
 
@@ -16,8 +16,6 @@
 
 CONDOR, short for CONditionals for ORdinal Regression, is a method for ordinal regression with deep neural networks, 
 which addresses the rank inconsistency issue of other ordinal regression frameworks.
-
-<img src="docs/img/figure1.jpg" width=400>
 
 It is compatible with any state-of-the-art deep neural network architecture, requiring only modification of the output layer, the labels, the loss function.
 
@@ -36,7 +34,7 @@ If you use CONDOR as part of your workflow in a scientific publication, please c
 
 ```
 @article{condor2021,
-title = "TBD",
+title = "Universally rank consistent ordinal regression in neural networks",
 journal = "TBD",
 volume = "TBD",
 pages = "TBD",
@@ -44,7 +42,7 @@ year = "TBD",
 issn = "TBD",
 doi = "TBD",
 url = "TBD",
-author = "Garrett Jenkinson",
+author = "Garrett Jenkinson and Kia Khezeli and Gavin Oliver and John Kalantari and Eric Klee",
 keywords = "Deep learning, Ordinal regression, neural networks, Machine learning, Biometrics"
 }
 ```
