@@ -14,7 +14,7 @@
 
 ## About  
 
-CONDOR, short for CONditionals for ORdinal Regression, is a method for ordinal regression with deep neural networks, 
+CONDOR, short for CONDitionals for Ordinal Regression, is a method for ordinal regression with deep neural networks, 
 which addresses the rank inconsistency issue of other ordinal regression frameworks.
 
 It is compatible with any state-of-the-art deep neural network architecture, requiring only modification of the output layer, the labels, the loss function.
