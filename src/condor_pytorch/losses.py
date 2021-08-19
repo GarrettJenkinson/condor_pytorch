@@ -50,8 +50,8 @@ def CondorOrdinalCrossEntropy(logits, levels, importance_weights=None, reduction
     ...    [[2.1, 1.8, -2.1, -1.8],
     ...     [1.9, -1., -1.5, -1.3],
     ...     [1.9, 1.8, 1.7, 1.6]])
-    >>> condor_loss(logits, levels)
-    tensor(0.6920)
+    >>> CondorOrdinalCrossEntropy(logits, levels)
+    tensor(0.8259)
     """
 
     if not logits.shape == levels.shape:
