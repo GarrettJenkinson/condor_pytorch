@@ -12,7 +12,7 @@ from .dataset import levels_from_labelbatch
 from .dataset import proba_to_label
 from .dataset import logits_to_label
 from .losses import CondorOrdinalCrossEntropy
-#from .metrics import MeanAbsoluteErrVorLabels
+from .metrics import earth_movers_distance
 #from .activations import ordinal_softmax
 #from .labelencoder import CondorOrdinalEncoder
 
