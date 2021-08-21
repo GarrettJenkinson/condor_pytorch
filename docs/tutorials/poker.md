@@ -38,10 +38,6 @@ print('Number of features:', train_features.shape[1])
 print('Number of training examples:', train_features.shape[0])
 ```
 
-    Number of features: 11
-    Number of training examples: 25010
-
-
 
 ```python
 test_df = pd.read_csv("https://archive.ics.uci.edu/ml/machine-learning-databases/poker/poker-hand-testing.data", header=None)
@@ -52,9 +48,6 @@ test_labels = test_df.loc[:, 10]
 
 print('Number of test examples:', test_features.shape[0])
 ```
-
-    Number of test examples: 1000000
-
 
 Standardize features:
 
@@ -112,9 +105,6 @@ DEVICE = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 print('Training on', DEVICE)
 ```
 
-    Training on cpu
-
-
 
 ```python
 from torch.utils.data import Dataset
@@ -166,44 +156,31 @@ for inputs, labels in train_loader:
     break
 ```
 
-    Input batch dimensions: torch.Size([128, 11])
-    Input label dimensions: torch.Size([128])
-
-
 ## 2 - Equipping MLP with CONDOR layer
 
-In this section, we are using the CondorLayer implemented in `condor_pytorch` to outfit a multilayer perceptron for ordinal regression. Note that the CONDOR method only requires replacing the last (output) layer, which is typically a fully-connected layer, by the CONDOR layer.
+In this section, we are using  `condor_pytorch` to outfit a multilayer perceptron for ordinal regression. Note that the CONDOR method only requires replacing the last (output) layer, which is typically a fully-connected layer, by the CONDOR layer with one fewer node.
 
-Also, please use the `sigmoid` not softmax function (since the CONDOR method uses a concept known as extended binary classification as described in the paper).
 
 
 ```python
-from condor_pytorch.layers import CondorLayer
-
-
-
 class CondorMLP(torch.nn.Module):
 
     def __init__(self, num_classes):
         super(CondorMLP, self).__init__()
-        
+
         self.features = torch.nn.Sequential(
             torch.nn.Linear(11, 5),
-            torch.nn.Linear(5, 5))
-        
-        ### Specify CONDOR layer
-        self.fc = CondorLayer(size_in=5, num_classes=num_classes)
-        ###--------------------------------------------------------------------###
-        
+            torch.nn.ReLU(),
+            torch.nn.Linear(5, 5),
+            torch.nn.ReLU(),
+            torch.nn.Linear(5,num_classes-1) #THIS IS KEY OUTPUT SIZE
+        )
+
+
     def forward(self, x):
-        x = self.features(x)
-        
-        ##### Use CONDOR layer #####
-        logits =  self.fc(x)
-        probas = torch.sigmoid(logits)
-        ###--------------------------------------------------------------------###
-        
-        return logits, probas
+        logits = self.features(x)
+        return logits
+
     
     
     
@@ -228,14 +205,14 @@ During training, all you need to do is to
 2) Apply the CONDOR loss (also provided via `condor_pytorch`):
 
 ```python
-        cost = condor_loss(logits, levels)
+        cost = CondorOrdinalCrossEntropy(logits, levels)
 ```
 
 
 
 ```python
 from condor_pytorch.dataset import levels_from_labelbatch
-from condor_pytorch.losses import condor_loss
+from condor_pytorch.losses import CondorOrdinalCrossEntropy
 
 
 for epoch in range(num_epochs):
@@ -250,10 +227,10 @@ for epoch in range(num_epochs):
 
         features = features.to(DEVICE)
         levels = levels.to(DEVICE)
-        logits, probas = model(features)
+        logits = model(features)
         
         #### CONDOR loss 
-        cost = condor_loss(logits, levels)
+        cost = cost = CondorOrdinalCrossEntropy(logits, levels)
         ###--------------------------------------------------------------------###   
         
         
@@ -268,75 +245,54 @@ for epoch in range(num_epochs):
                      len(train_loader), cost))
 ```
 
-    Epoch: 001/020 | Batch 000/196 | Cost: 6.5905
-    Epoch: 002/020 | Batch 000/196 | Cost: 3.0309
-    Epoch: 003/020 | Batch 000/196 | Cost: 1.7885
-    Epoch: 004/020 | Batch 000/196 | Cost: 1.2904
-    Epoch: 005/020 | Batch 000/196 | Cost: 1.2604
-    Epoch: 006/020 | Batch 000/196 | Cost: 1.3774
-    Epoch: 007/020 | Batch 000/196 | Cost: 1.0882
-    Epoch: 008/020 | Batch 000/196 | Cost: 1.1178
-    Epoch: 009/020 | Batch 000/196 | Cost: 1.0749
-    Epoch: 010/020 | Batch 000/196 | Cost: 1.0276
-    Epoch: 011/020 | Batch 000/196 | Cost: 0.9430
-    Epoch: 012/020 | Batch 000/196 | Cost: 0.9547
-    Epoch: 013/020 | Batch 000/196 | Cost: 0.7979
-    Epoch: 014/020 | Batch 000/196 | Cost: 0.9496
-    Epoch: 015/020 | Batch 000/196 | Cost: 0.6845
-    Epoch: 016/020 | Batch 000/196 | Cost: 0.9132
-    Epoch: 017/020 | Batch 000/196 | Cost: 0.8270
-    Epoch: 018/020 | Batch 000/196 | Cost: 0.6653
-    Epoch: 019/020 | Batch 000/196 | Cost: 0.6094
-    Epoch: 020/020 | Batch 000/196 | Cost: 0.7930
-
-
 ## 4 -- Evaluate model
 
 Finally, after model training, we can evaluate the performance of the model. For example, via the mean absolute error and mean squared error measures.
 
-For this, we are going to use the `proba_to_label` utility function from `condor_pytorch` to convert the probabilities back to the orginal label.
+For this, we are going to use the `logits_to_label` utility function from `condor_pytorch` to convert the probabilities back to the orginal label.
 
 
 
 ```python
-from condor_pytorch.dataset import proba_to_label
+from condor_pytorch.dataset import logits_to_label
 
 
 def compute_mae_and_mse(model, data_loader, device):
 
     with torch.no_grad():
     
-        mae, mse, acc, num_examples = 0., 0., 0., 0
+        pwrong, mae, mse, acc, num_examples = 0., 0., 0., 0., 0
 
         for i, (features, targets) in enumerate(data_loader):
 
             features = features.to(device)
             targets = targets.float().to(device)
+            ids = targets.long()
 
-            logits, probas = model(features)
-            predicted_labels = proba_to_label(probas).float()
+            logits = model(features)
+            predicted_labels = logits_to_label(logits).float()
+            predicted_probs = ordinal_softmax(logits).float()
 
             num_examples += targets.size(0)
             mae += torch.sum(torch.abs(predicted_labels - targets))
             mse += torch.sum((predicted_labels - targets)**2)
+            pwrong += torch.sum(1. - predicted_probs.gather(1,ids.view(-1,1)))
 
         mae = mae / num_examples
         mse = mse / num_examples
-        return mae, mse
+        pwrong = pwrong / num_examples
+        return mae, mse, pwrong
 ```
 
 
 ```python
-train_mae, train_mse = compute_mae_and_mse(model, train_loader, DEVICE)
-test_mae, test_mse = compute_mae_and_mse(model, test_loader, DEVICE)
+train_mae, train_mse, train_pwrong = compute_mae_and_mse(model, train_loader, DEVICE)
+test_mae, test_mse, test_pwrong = compute_mae_and_mse(model, test_loader, DEVICE)
 ```
 
 
 ```python
 print(f'Mean absolute error (train/test): {train_mae:.2f} | {test_mae:.2f}')
 print(f'Mean squared error (train/test): {train_mse:.2f} | {test_mse:.2f}')
+print(f'Mean probability on wrong class (train/test): {train_pwrong:.3f} | {test_pwrong:.3f}')
 ```
-
-    Mean absolute error (train/test): 0.10 | 0.10
-    Mean squared error (train/test): 0.21 | 0.21
-
