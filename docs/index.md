@@ -1,5 +1,5 @@
 
-<img src="./img/condor-logo-alpha.png" width=300>
+<img src="./img/condor.png" width=300>
 
 **CORAL implementation for ordinal regression with deep neural networks.**
 
@@ -12,17 +12,45 @@
 ---
 
 ## About  
+CONDOR, short for CONDitionals for Ordinal Regression, is a method for ordinal regression with deep neural networks,
+which addresses the rank inconsistency issue of other ordinal regression frameworks.
 
-CORAL, short for COnsistent RAnk Logits, is a method for ordinal regression with deep neural networks, which addresses the rank inconsistency issue of other ordinal regression frameworks.
+It is compatible with any state-of-the-art deep neural network architecture, requiring only modification of the
+output layer, the labels, the loss function.
 
-<img src="img/figure1.jpg" width=400>
+This repository implements the CONDOR functionality (neural network layer, loss function, and dataset utilities) for convenient use.
 
-Originally, developed this method in the context of age prediction from face images. Our approach was evaluated on several face image datasets for age prediction using ResNet-34, but it is compatible with other state-of-the-art deep neural networks.
+We also have [CONDOR implemented for Tensorflow](https://github.com/GarrettJenkinson/condor_tensorflow).
 
-This repository implements the CORAL functionality (neural network layer, loss function, and dataset utilities) for convenient use. Examples are provided via the "Tutorials" in the upper left menu bar.
+---
 
-If you are looking for the orginal implementation, training datasets, and training log files corresponding to the paper, you can find these here: [https://github.com/Raschka-research-group/condor-cnn](https://github.com/Raschka-research-group/condor-cnn).
+## Docker
 
+We provide Dockerfile's to help get up and started quickly with `condor_pytorch`.
+The cpu image can be built and ran as follows, with tutorial jupyter notebooks
+built in.
+
+```bash
+# Create a docker image, only done once
+docker build -t cpu_pytorch -f cpu.Dockerfile ./
+
+# run image to serve a jupyter notebook
+docker run -it -p 8888:8888 --rm cpu_pytorch
+
+# how to run bash inside container (with python that will have deps)
+docker run -u $(id -u):$(id -g) -it -p 8888:8888 --rm cpu_pytorch bash
+```
+
+An NVIDIA based gpu optimized container can be built and run
+as follows (without interactive ipynb capabilities).
+
+```bash
+# only needs to be built once
+docker build -t gpu_pytorch -f gpu.Dockerfile ./
+
+# use the image after building it
+docker run -u $(id -u):$(id -g) -it --rm cpu_pytorch
+```
 
 ---
 
@@ -34,7 +62,7 @@ If you use CONDOR as part of your workflow in a scientific publication, please c
 
 ```
 @article{condor2021,
-title = "TBD",
+title = "Universally rank consistent ordinal regression in neural networks",
 journal = "TBD",
 volume = "TBD",
 pages = "TBD",
@@ -42,7 +70,7 @@ year = "TBD",
 issn = "TBD",
 doi = "TBD",
 url = "TBD",
-author = "Garrett Jenkinson",
+author = "Garrett Jenkinson and Kia Khezeli and Gavin Oliver and John Kalantari and Eric Klee",
 keywords = "Deep learning, Ordinal regression, neural networks, Machine learning, Biometrics"
 }
 ```

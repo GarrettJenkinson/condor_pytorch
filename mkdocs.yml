@@ -33,7 +33,14 @@ nav:
     - API:
           - condor_pytorch.dataset: api_subpackages/condor_pytorch.dataset.md
           - condor_pytorch.losses: api_subpackages/condor_pytorch.losses.md
+          - condor_pytorch.activations: api_subpackages/condor_pytorch.activations.md
+          - condor_pytorch.losses: api_modules/condor_pytorch.losses/CondorOrdinalCrossEntropy.md
+          - condor_pytorch.activations: api_modules/condor_pytorch.activations/ordinal_softmax.md
+          - condor_pytorch.dataset: api_modules/condor_pytorch.dataset/label_to_levels.md
+          - condor_pytorch.dataset: api_modules/condor_pytorch.dataset/levels_from_labelbatch.md
+          - condor_pytorch.dataset: api_modules/condor_pytorch.dataset/logits_to_label.md
+          - condor_pytorch.dataset: api_modules/condor_pytorch.dataset/proba_to_label.md
     - Installation: installation.md
-    - Changelog: changelog.md
+    - Changelog: CHANGELOG.md
     - Citing: citing.md
     - License: license.md
