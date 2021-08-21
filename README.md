@@ -26,6 +26,35 @@ We also have [CONDOR implemented for Tensorflow](https://github.com/GarrettJenki
 
 ---
 
+## Docker
+---
+
+We provide Dockerfile's to help get up and started quickly with `condor_pytorch`.
+The cpu image can be built and ran as follows, with tutorial jupyter notebooks
+built in.
+
+```bash
+# Create a docker image, only done once
+docker build -t cpu_pytorch -f cpu.Dockerfile ./
+
+# run image to serve a jupyter notebook
+docker run -it -p 8888:8888 --rm cpu_pytorch
+
+# how to run bash inside container (with python that will have deps)
+docker run -u $(id -u):$(id -g) -it -p 8888:8888 --rm cpu_pytorch bash
+```
+
+An NVIDIA based gpu optimized container can be built and run 
+as follows (without interactive ipynb capabilities).
+
+```bash
+# only needs to be built once
+docker build -t gpu_pytorch -f gpu.Dockerfile ./
+
+# use the image after building it
+docker run -u $(id -u):$(id -g) -it --rm cpu_pytorch
+```
+
 ## Cite as
 
 If you use CONDOR as part of your workflow in a scientific publication, please consider citing the CONDOR repository with the following DOI:

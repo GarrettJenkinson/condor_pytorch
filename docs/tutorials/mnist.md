@@ -186,7 +186,7 @@ For this, we are going to use the `logits_to_label` utility function from `condo
 
 ```python
 from condor_pytorch.dataset import logits_to_label
-
+from condor_pytorch.activations import ordinal_softmax
 
 def compute_mae_and_mse(model, data_loader, device):
 
