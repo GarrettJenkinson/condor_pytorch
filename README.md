@@ -24,6 +24,8 @@ Examples are provided via the "Tutorials" that can be found on the documentation
 
 We also have [CONDOR implemented for Tensorflow](https://github.com/GarrettJenkinson/condor_tensorflow).
 
+<img src="docs/img/rankconsistent.png" width=500>
+
 ---
 
 ## Docker

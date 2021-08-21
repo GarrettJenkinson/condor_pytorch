@@ -22,6 +22,8 @@ This repository implements the CONDOR functionality (neural network layer, loss 
 
 We also have [CONDOR implemented for Tensorflow](https://github.com/GarrettJenkinson/condor_tensorflow).
 
+<img src="./img/rankconsistent.png" width=500>
+
 ---
 
 ## Docker
