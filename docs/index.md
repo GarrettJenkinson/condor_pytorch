@@ -51,7 +51,7 @@ as follows (without interactive ipynb capabilities).
 docker build -t gpu_pytorch -f gpu.Dockerfile ./
 
 # use the image after building it
-docker run -u $(id -u):$(id -g) -it --rm cpu_pytorch
+docker run -u $(id -u):$(id -g) -it -p 8888:8888 --rm cpu_pytorch
 ```
 
 ---
