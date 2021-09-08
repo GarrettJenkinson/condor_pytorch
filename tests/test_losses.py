@@ -11,4 +11,4 @@ def test_CondorOrdinalCrossEntropy():
                            [1.9, -1., -1.5, -1.3],
                            [1.9, 1.8, 1.7, 1.6]])
     assert torch.allclose(CondorOrdinalCrossEntropy(logits,levels),
-                          torch.tensor(0.8259))
+                          torch.tensor(0.8259),atol=1e-4,rtol=1e-4)
