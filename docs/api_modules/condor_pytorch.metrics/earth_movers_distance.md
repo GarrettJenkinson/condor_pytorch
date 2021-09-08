@@ -1,10 +1,8 @@
-## CondorOrdinalCrossEntropy
+## earth_movers_distance
 
-*CondorOrdinalCrossEntropy(logits, levels, importance_weights=None, reduction='mean')*
+*earth_movers_distance(logits, levels, reduction='mean')*
 
-Computes the CONDOR loss described in
-
-    CONDOR TBD.
+Computes the Earth Movers Distance
 
 **Parameters**
 
@@ -17,14 +15,6 @@ Computes the CONDOR loss described in
 
     True labels represented as extended binary vectors
     (via `condor_pytorch.dataset.levels_from_labelbatch`).
-
-
-- `importance_weights` : torch.tensor, shape=(num_classes-1,) (default=None)
-
-    Optional weights for the different labels in levels.
-    A tensor of ones, i.e.,
-    `torch.ones(num_classes-1, dtype=torch.float32)`
-    will result in uniform weights that have the same effect as None.
 
 
 - `reduction` : str or None (default='mean')
@@ -52,7 +42,7 @@ Computes the CONDOR loss described in
     ...    [[2.1, 1.8, -2.1, -1.8],
     ...     [1.9, -1., -1.5, -1.3],
     ...     [1.9, 1.8, 1.7, 1.6]])
-    >>> CondorOrdinalCrossEntropy(logits, levels)
-    tensor(0.8259)
+    >>> earth_movers_distance(logits, levels)
+    tensor(0.6943)
 ```
 

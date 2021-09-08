@@ -13,7 +13,7 @@ def CondorOrdinalCrossEntropy(logits, levels, importance_weights=None, reduction
 
     CONDOR TBD.
 
-        Parameters
+    Parameters
     ----------
     logits : torch.tensor, shape(num_examples, num_classes-1)
         Outputs of the CONDOR layer.

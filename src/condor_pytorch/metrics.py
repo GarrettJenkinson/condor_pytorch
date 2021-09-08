@@ -11,7 +11,7 @@ from .activations import ordinal_softmax
 def earth_movers_distance(logits, levels, reduction='mean'):
     """Computes the Earth Movers Distance
 
-        Parameters
+    Parameters
     ----------
     logits : torch.tensor, shape(num_examples, num_classes-1)
         Outputs of the CONDOR layer.
@@ -75,7 +75,7 @@ def earth_movers_distance(logits, levels, reduction='mean'):
 def ordinal_accuracy(logits, levels, tolerance=0, reduction='mean'):
     """Computes the accuracy with a tolerance for ordinal error.
 
-        Parameters
+    Parameters
     ----------
     logits : torch.tensor, shape(num_examples, num_classes-1)
         Outputs of the CONDOR layer.
@@ -142,7 +142,7 @@ def ordinal_accuracy(logits, levels, tolerance=0, reduction='mean'):
 def mean_absolute_error(logits, levels, reduction='mean'):
     """Computes the mean absolute error of ordinal predictions.
 
-        Parameters
+    Parameters
     ----------
     logits : torch.tensor, shape(num_examples, num_classes-1)
         Outputs of the CONDOR layer.
