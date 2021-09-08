@@ -187,15 +187,22 @@ For this, we are going to use the `logits_to_label` utility function from `condo
 ```python
 from condor_pytorch.dataset import logits_to_label
 from condor_pytorch.activations import ordinal_softmax
+from condor_pytorch.metrics import earth_movers_distance
+from condor_pytorch.metrics import ordinal_accuracy
+from condor_pytorch.metrics import mean_absolute_error
 
-def compute_mae_and_mse(model, data_loader, device):
+def compute_mae_and_acc(model, data_loader, device):
 
     with torch.no_grad():
     
-        pwrong, mae, mse, acc, num_examples = 0., 0., 0., 0., 0
+        emd, mae, acc, acc1, num_examples = 0., 0., 0., 0., 0
 
         for i, (features, targets) in enumerate(data_loader):
+            ##### Convert class labels for CONDOR
+            levels = levels_from_labelbatch(targets, 
+                                        num_classes=NUM_CLASSES)
             features = features.to(device)
+            levels = levels.to(device)
             targets = targets.float().to(device)
             ids = targets.long()
 
@@ -204,27 +211,28 @@ def compute_mae_and_mse(model, data_loader, device):
             predicted_probs = ordinal_softmax(logits).float()
 
             num_examples += targets.size(0)
-            mae += torch.sum(torch.abs(predicted_labels - targets))
-            mse += torch.sum((predicted_labels - targets)**2)
-            pwrong += torch.sum(1. - predicted_probs.gather(1,ids.view(-1,1)))
+            mae  += mean_absolute_error(logits,levels,reduction='sum')
+            acc  += ordinal_accuracy(logits,levels,tolerance=0,reduction='sum')
+            acc1 += ordinal_accuracy(logits,levels,tolerance=1,reduction='sum')
+            emd  += earth_movers_distance(logits,levels,reduction='sum')
 
-        mae = mae / num_examples
-        mse = mse / num_examples
-        pwrong = pwrong / num_examples
-        return mae, mse, pwrong
+        mae  = mae / num_examples
+        acc  = acc / num_examples
+        acc1 = acc1 / num_examples
+        emd  = emd / num_examples
+        return mae, acc, acc1, emd
 ```
 
 
 ```python
-train_mae, train_mse, train_pwrong = compute_mae_and_mse(model, train_loader, DEVICE)
-test_mae, test_mse, test_pwrong = compute_mae_and_mse(model, test_loader, DEVICE)
+train_mae, train_acc, train_acc1, train_emd = compute_mae_and_acc(model, train_loader, DEVICE)
+test_mae, test_acc, test_acc1, test_emd = compute_mae_and_acc(model, test_loader, DEVICE)
 ```
 
 
 ```python
 print(f'Mean absolute error (train/test): {train_mae:.2f} | {test_mae:.2f}')
-print(f'Mean squared error (train/test): {train_mse:.2f} | {test_mse:.2f}')
-print(f'Mean probability on wrong class (train/test): {train_pwrong:.3f} | {test_pwrong:.3f}')
+print(f'Accuracy tolerance 0 (train/test): {train_acc:.2f} | {test_acc:.2f}')
+print(f'Accuracy tolerance 1 (train/test): {train_acc1:.2f} | {test_acc1:.2f}')
+print(f'Earth movers distance (train/test): {train_emd:.3f} | {test_emd:.3f}')
 ```
-
-Note that MNIST is not an ordinal dataset (there is no order between the image categories), so computing the MAE or MSE doesn't really make sense but we use it anyways for demonstration purposes.
