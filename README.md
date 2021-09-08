@@ -3,6 +3,7 @@
 
 **CONDOR pytorch implementation for ordinal regression with deep neural networks.**
 
+![Continuous Integration](https://github.com/GarrettJenkinson/condor_pytorch/actions/workflows/python-test.yml/badge.svg)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/GarrettJenkinson/condor_pytorch/blob/master/LICENSE)
 ![Python 3](https://img.shields.io/badge/python-3-blue.svg)
 
