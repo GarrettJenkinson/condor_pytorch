@@ -1,4 +1,5 @@
 import torch
+import torch.nn.functional as F
 
 def ordinal_softmax(x):
   """ Convert the ordinal logit output to label probabilities.
@@ -22,8 +23,9 @@ def ordinal_softmax(x):
   """
 
   # Convert the ordinal logits into cumulative probabilities.
+  log_probs = F.logsigmoid(x)
   cum_probs = torch.cat((torch.ones(x.shape[0],1,dtype=torch.float32),
-                         torch.cumprod(torch.sigmoid(x), dim = 1),
+                         torch.exp(torch.cumsum(log_probs, dim = 1)),
                          torch.zeros(x.shape[0],1,dtype=torch.float32)),
                         dim=1)
 
