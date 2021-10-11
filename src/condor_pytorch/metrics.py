@@ -8,7 +8,7 @@ import torch.nn.functional as F
 import torch
 from .activations import ordinal_softmax
 
-def earth_movers_distance(logits, levels, reduction='mean'):
+def earth_movers_distance(logits, levels, device='cpu', reduction='mean'):
     """Computes the Earth Movers Distance
 
     Parameters
@@ -19,6 +19,9 @@ def earth_movers_distance(logits, levels, reduction='mean'):
     levels : torch.tensor, shape(num_examples, num_classes-1)
         True labels represented as extended binary vectors
         (via `condor_pytorch.dataset.levels_from_labelbatch`).
+        
+    device: 'cpu', 'cuda', or None (default='cpu')
+        If GPUs are utilized, then the device should be passed accordingly. 
 
     reduction : str or None (default='mean')
         If 'mean' or 'sum', returns the averaged or summed loss value across
@@ -51,12 +54,13 @@ def earth_movers_distance(logits, levels, reduction='mean'):
         raise ValueError("Please ensure that logits (%s) has the same shape as levels (%s). "
                          % (logits.shape, levels.shape))
 
-    cum_probs = ordinal_softmax(logits)
+    cum_probs = ordinal_softmax(logits, device)
     y_true = torch.sum(levels,dim=1,keepdim=True,dtype=logits.dtype)
 
-    y_dist = torch.abs(torch.tile(y_true,(1,nclasses))
-                       -torch.tile(torch.arange(0,nclasses),(nbatch,1)))
-
+#     y_dist = torch.abs(torch.tile(y_true,(1,nclasses))
+#                        -torch.tile(torch.arange(0,nclasses),(nbatch,1)))
+    y_dist = torch.abs(y_true.repeat(1,nclasses) - torch.arange(0,nclasses).repeat(nbatch,1)).to(device)
+    
     val = torch.sum(torch.mul(cum_probs,y_dist),1)
 
     if reduction == 'mean':
@@ -72,7 +76,7 @@ def earth_movers_distance(logits, levels, reduction='mean'):
 
     return loss
 
-def ordinal_accuracy(logits, levels, tolerance=0, reduction='mean'):
+def ordinal_accuracy(logits, levels, device='cpu', tolerance=0, reduction='mean'):
     """Computes the accuracy with a tolerance for ordinal error.
 
     Parameters
@@ -83,7 +87,10 @@ def ordinal_accuracy(logits, levels, tolerance=0, reduction='mean'):
     levels : torch.tensor, shape(num_examples, num_classes-1)
         True labels represented as extended binary vectors
         (via `condor_pytorch.dataset.levels_from_labelbatch`).
-
+    
+    device: 'cpu', 'cuda', or None (default='cpu')
+        If GPUs are utilized, then the device should be passed accordingly. 
+    
     tolerance : integer
         Allowed error in the ordinal ranks that will count as
         a correct prediction.
@@ -119,10 +126,10 @@ def ordinal_accuracy(logits, levels, tolerance=0, reduction='mean'):
         raise ValueError("Please ensure that logits (%s) has the same shape as levels (%s). "
                          % (logits.shape, levels.shape))
 
-    y_true = torch.sum(levels,dim=1,keepdim=True,dtype=logits.dtype)
+    y_true = torch.sum(levels,dim=1,keepdim=True,dtype=logits.dtype).to(device)
 
-    y_est = torch.sum(torch.cumprod(torch.sigmoid(logits),dim=1)>0.5,dim=1,keepdim=True,dtype=logits.dtype)
-
+    y_est = torch.sum(torch.cumprod(torch.sigmoid(logits),dim=1)>0.5,dim=1,keepdim=True,dtype=logits.dtype).to(device)
+    
     # 1 when correct and 0 else
     val = torch.le(torch.abs(y_true-y_est),tolerance).to(torch.float32)
 
