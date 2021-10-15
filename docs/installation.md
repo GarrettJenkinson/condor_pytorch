@@ -14,7 +14,7 @@ Condor requires the following software and packages:
 You can install the latest stable release of `condor_pytorch` directly from Python's package index via `pip` by executing the following code from your command line:  
 
 ```bash
-pip install condor_pytorch
+pip install condor-pytorch
 ```
 
 

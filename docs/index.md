@@ -3,7 +3,7 @@
 
 **CORAL implementation for ordinal regression with deep neural networks.**
 
-[![PyPi version](https://pypip.in/v/condor_pytorch/badge.png)](https://pypi.org/project/condor_pytorch/)
+[![PyPi version](https://badge.fury.io/py/condor-pytorch.svg)](https://pypi.org/project/condor_pytorch/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/raschka-research-group/condor_pytorch/blob/main/LICENSE)
 ![Python 3](https://img.shields.io/badge/python-3-blue.svg)
 

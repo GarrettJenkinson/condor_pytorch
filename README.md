@@ -29,10 +29,15 @@ We also have [CONDOR implemented for Tensorflow](https://github.com/GarrettJenki
 
 ---
 
-## Docker
+## Installation or Docker
 ---
 
-We provide Dockerfile's to help get up and started quickly with `condor_pytorch`.
+You can install the latest stable release of `condor_pytorch` directly from Python's package index via `pip` by executing the following code from your command line:  
+
+```bash
+pip install condor-pytorch
+```
+We also provide Dockerfile's to help get up and started quickly with `condor_pytorch`.
 The cpu image can be built and ran as follows, with tutorial jupyter notebooks
 built in.
 
