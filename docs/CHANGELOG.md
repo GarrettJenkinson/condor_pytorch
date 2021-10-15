@@ -1,7 +1,7 @@
 # Release Notes
 
 The changelog for the current development version is available at
-[https://github.com/GarrettJenkinson/condor_pytorch/blob/main/docs/CHANGELOG.md](https://github.com/GarrettJenkinson/condor_pytorch/blob/main/docs/CHANGELOG.md.
+[https://github.com/GarrettJenkinson/condor_pytorch/blob/main/docs/CHANGELOG.md](https://github.com/GarrettJenkinson/condor_pytorch/blob/main/docs/CHANGELOG.md).
 
 ### 1.0.0 (10/14/2021)
 
