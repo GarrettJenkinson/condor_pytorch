@@ -1,5 +1,5 @@
 
-<img src="docs/img/condor.png" width=300>
+<img src="https://github.com/GarrettJenkinson/condor_pytorch/blob/main/docs/img/condor.png" width=300>
 
 **CONDOR pytorch implementation for ordinal regression with deep neural networks.**
 
@@ -25,7 +25,7 @@ Examples are provided via the "Tutorials" that can be found on the documentation
 
 We also have [CONDOR implemented for Tensorflow](https://github.com/GarrettJenkinson/condor_tensorflow).
 
-<img src="docs/img/rankconsistent.png" width=500>
+<img src="https://github.com/GarrettJenkinson/condor_pytorch/raw/main/docs/img/rankconsistent.png" width=500>
 
 ---
 
