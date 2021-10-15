@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="Garrett Jenkinson">
+  <link rel="canonical" href="http://GarrettJenkinson.github.io/condor_pytorch/tutorials/mnist/">
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>MNIST - condor_pytorch</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../../css/theme.css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  <link href="../../extra.css" rel="stylesheet" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "MNIST";
+    var mkdocs_page_input_path = "tutorials/mnist.md";
+    var mkdocs_page_url = "/condor_pytorch/tutorials/mnist/";
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> condor_pytorch</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Tutorials</span></p>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">MNIST</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#1-setting-up-the-dataset-and-dataloader">1 -- Setting up the dataset and dataloader</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#2-equipping-cnn-with-condor-layer">2 - Equipping CNN with CONDOR layer</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#3-using-the-condor-loss-for-model-training">3 - Using the CONDOR loss for model training</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#4-evaluate-model">4 -- Evaluate model</a>
+    </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../poker/">Poker Hands</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">API</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../api_subpackages/condor_pytorch.dataset/">condor_pytorch.dataset</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../api_subpackages/condor_pytorch.losses/">condor_pytorch.losses</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../api_subpackages/condor_pytorch.activations/">condor_pytorch.activations</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../api_subpackages/condor_pytorch.metrics/">condor_pytorch.metrics</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../api_modules/condor_pytorch.losses/CondorOrdinalCrossEntropy/">condor_pytorch.losses</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../api_modules/condor_pytorch.activations/ordinal_softmax/">condor_pytorch.activations</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../api_modules/condor_pytorch.dataset/label_to_levels/">condor_pytorch.dataset</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../api_modules/condor_pytorch.dataset/levels_from_labelbatch/">condor_pytorch.dataset</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../api_modules/condor_pytorch.dataset/logits_to_label/">condor_pytorch.dataset</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../api_modules/condor_pytorch.dataset/proba_to_label/">condor_pytorch.dataset</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../api_modules/condor_pytorch.metrics/earth_movers_distance/">condor_pytorch.metrics</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../api_modules/condor_pytorch.metrics/mean_absolute_error/">condor_pytorch.metrics</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../api_modules/condor_pytorch.metrics/ordinal_accuracy/">condor_pytorch.metrics</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../api_modules/condor_pytorch.metrics/ordinal_softmax/">condor_pytorch.metrics</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../installation/">Installation</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../CHANGELOG/">Changelog</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../citing/">Citing</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../license/">License</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">condor_pytorch</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Tutorials &raquo;</li>
+        
+      
+    
+    <li>MNIST</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/GarrettJenkinson/condor_pytorch/edit/master/docs/tutorials/mnist.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="condor-cnn-for-predicting-handwritten-digits-mnist">CONDOR CNN for predicting handwritten digits (MNIST)</h1>
+<p>This tutorial explains how to equip a deep neural network with the CONDOR layer and loss function for ordinal regression. Please note that <strong>MNIST is not an ordinal dataset</strong>. The reason why we use MNIST in this tutorial is that it is included in the PyTorch's <code>torchvision</code> library and is thus easy to work with, since it doesn't require extra data downloading and preprocessing steps.</p>
+<h2 id="1-setting-up-the-dataset-and-dataloader">1 -- Setting up the dataset and dataloader</h2>
+<p>In this section, we set up the data set and data loaders. This is a general procedure that is not specific to CONDOR.</p>
+<pre><code class="language-python">import torch
+from torchvision import datasets
+from torchvision import transforms
+from torch.utils.data import DataLoader
+
+##########################
+### SETTINGS
+##########################
+
+# Hyperparameters
+random_seed = 1
+learning_rate = 0.05
+num_epochs = 10
+batch_size = 128
+
+# Architecture
+NUM_CLASSES = 10
+
+# Other
+DEVICE = torch.device(&quot;cuda:0&quot; if torch.cuda.is_available() else &quot;cpu&quot;)
+print('Training on', DEVICE)
+
+##########################
+### MNIST DATASET
+##########################
+
+
+# Note transforms.ToTensor() scales input images
+# to 0-1 range
+train_dataset = datasets.MNIST(root='data', 
+                               train=True, 
+                               transform=transforms.ToTensor(),
+                               download=True)
+
+test_dataset = datasets.MNIST(root='data', 
+                              train=False, 
+                              transform=transforms.ToTensor())
+
+
+train_loader = DataLoader(dataset=train_dataset, 
+                          batch_size=batch_size, 
+                          drop_last=True,
+                          shuffle=True)
+
+test_loader = DataLoader(dataset=test_dataset, 
+                         batch_size=batch_size, 
+                         drop_last=True,
+                         shuffle=False)
+
+# Checking the dataset
+for images, labels in train_loader:  
+    print('Image batch dimensions:', images.shape)
+    print('Image label dimensions:', labels.shape)
+    break
+</code></pre>
+<h2 id="2-equipping-cnn-with-condor-layer">2 - Equipping CNN with CONDOR layer</h2>
+<p>In this section, we are using  <code>condor_pytorch</code> to outfit a convolutional neural network for ordinal regression. Note that the CONDOR method only requires replacing the last (output) layer, which is typically a fully-connected layer, by the CONDOR layer.</p>
+<p>Using the <code>Sequential</code> API, we specify the CORAl layer as </p>
+<pre><code class="language-python">        self.fc = torch.nn.Linear(size_in=294, num_classes=num_classes-1)
+</code></pre>
+<p>This is because the convolutional and pooling layers </p>
+<pre><code class="language-python">            torch.nn.Conv2d(1, 3, (3, 3), (1, 1), 1),
+            torch.nn.MaxPool2d((2, 2), (2, 2)),
+            torch.nn.Conv2d(3, 6, (3, 3), (1, 1), 1),
+            torch.nn.MaxPool2d((2, 2), (2, 2)))
+</code></pre>
+<p>produce a flattened feature vector of 294 units. Then, when using the CONDOR layer in the forward function</p>
+<pre><code class="language-python">        logits =  self.fc(x)
+</code></pre>
+<p>please use the <code>sigmoid</code> not softmax function (since the CONDOR method uses a concept known as extended binary classification as described in the paper).</p>
+<pre><code class="language-python">class ConvNet(torch.nn.Module):
+
+    def __init__(self, num_classes):
+        super(ConvNet, self).__init__()
+
+        self.features = torch.nn.Sequential(
+            torch.nn.Conv2d(1, 3, (3, 3), (1, 1), 1),
+            torch.nn.MaxPool2d((2, 2), (2, 2)),
+            torch.nn.Conv2d(3, 6, (3, 3), (1, 1), 1),
+            torch.nn.MaxPool2d((2, 2), (2, 2)))
+
+        self.fc = torch.nn.Linear(294,num_classes-1) #THIS IS KEY OUTPUT SIZE 
+
+    def forward(self, x):
+        x = self.features(x)
+        x = x.view(x.size(0), -1) # flatten
+        logits =  self.fc(x)
+
+        return logits
+
+
+
+torch.manual_seed(random_seed)
+model = ConvNet(num_classes=NUM_CLASSES)
+model.to(DEVICE)
+
+optimizer = torch.optim.Adam(model.parameters())
+</code></pre>
+<h2 id="3-using-the-condor-loss-for-model-training">3 - Using the CONDOR loss for model training</h2>
+<p>During training, all you need to do is to </p>
+<p>1) convert the integer class labels into the extended binary label format using the <code>levels_from_labelbatch</code> provided via <code>condor_pytorch</code>:</p>
+<pre><code class="language-python">        levels = levels_from_labelbatch(class_labels, 
+                                        num_classes=NUM_CLASSES)
+</code></pre>
+<p>2) Apply the CONDOR loss (also provided via <code>condor_pytorch</code>):</p>
+<pre><code class="language-python">        cost = CondorOrdinalCrossEntropy(logits, levels)
+</code></pre>
+<pre><code class="language-python">from condor_pytorch.dataset import levels_from_labelbatch
+from condor_pytorch.losses import CondorOrdinalCrossEntropy
+
+
+for epoch in range(num_epochs):
+
+    model = model.train()
+    for batch_idx, (features, class_labels) in enumerate(train_loader):
+
+        ##### Convert class labels for CONDOR
+        levels = levels_from_labelbatch(class_labels, 
+                                        num_classes=NUM_CLASSES)
+        ###--------------------------------------------------------------------###
+        features = features.to(DEVICE)
+        levels = levels.to(DEVICE)
+        logits = model(features)
+
+        #### CONDOR loss 
+        cost = cost = CondorOrdinalCrossEntropy(logits, levels)
+        ###--------------------------------------------------------------------###   
+
+
+        optimizer.zero_grad()
+        cost.backward()
+        optimizer.step()
+
+        ### LOGGING
+        if not batch_idx % 200:
+            print ('Epoch: %03d/%03d | Batch %03d/%03d | Cost: %.4f' 
+                   %(epoch+1, num_epochs, batch_idx, 
+                     len(train_loader), cost))
+</code></pre>
+<h2 id="4-evaluate-model">4 -- Evaluate model</h2>
+<p>Finally, after model training, we can evaluate the performance of the model. For example, via the mean absolute error and mean squared error measures.</p>
+<p>For this, we are going to use the <code>logits_to_label</code> utility function from <code>condor_pytorch</code> to convert the probabilities back to the orginal label.</p>
+<pre><code class="language-python">from condor_pytorch.dataset import logits_to_label
+from condor_pytorch.activations import ordinal_softmax
+from condor_pytorch.metrics import earth_movers_distance
+from condor_pytorch.metrics import ordinal_accuracy
+from condor_pytorch.metrics import mean_absolute_error
+
+def compute_mae_and_acc(model, data_loader, device):
+
+    with torch.no_grad():
+
+        emd, mae, acc, acc1, num_examples = 0., 0., 0., 0., 0
+
+        for i, (features, targets) in enumerate(data_loader):
+            ##### Convert class labels for CONDOR
+            levels = levels_from_labelbatch(targets, 
+                                        num_classes=NUM_CLASSES)
+            features = features.to(device)
+            levels = levels.to(device)
+            targets = targets.float().to(device)
+            ids = targets.long()
+
+            logits = model(features)
+            predicted_labels = logits_to_label(logits).float()
+            predicted_probs = ordinal_softmax(logits).float()
+
+            num_examples += targets.size(0)
+            mae  += mean_absolute_error(logits,levels,reduction='sum')
+            acc  += ordinal_accuracy(logits,levels,tolerance=0,reduction='sum')
+            acc1 += ordinal_accuracy(logits,levels,tolerance=1,reduction='sum')
+            emd  += earth_movers_distance(logits,levels,reduction='sum')
+
+        mae  = mae / num_examples
+        acc  = acc / num_examples
+        acc1 = acc1 / num_examples
+        emd  = emd / num_examples
+        return mae, acc, acc1, emd
+</code></pre>
+<pre><code class="language-python">train_mae, train_acc, train_acc1, train_emd = compute_mae_and_acc(model, train_loader, DEVICE)
+test_mae, test_acc, test_acc1, test_emd = compute_mae_and_acc(model, test_loader, DEVICE)
+</code></pre>
+<pre><code class="language-python">print(f'Mean absolute error (train/test): {train_mae:.2f} | {test_mae:.2f}')
+print(f'Accuracy tolerance 0 (train/test): {train_acc:.2f} | {test_acc:.2f}')
+print(f'Accuracy tolerance 1 (train/test): {train_acc1:.2f} | {test_acc1:.2f}')
+print(f'Earth movers distance (train/test): {train_emd:.3f} | {test_emd:.3f}')
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../poker/" class="btn btn-neutral float-right" title="Poker Hands">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../.." class="btn btn-neutral" title="Home"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+      <p>Copyright &copy; 2021 <a href="http://github.com/GarrettJenkinson">Garrett Jenkinson</a></p>
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/GarrettJenkinson/condor_pytorch/" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../.." style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../poker/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme_extra.js" defer></script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML" defer></script>
+      <script src="../../mathjaxhelper.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

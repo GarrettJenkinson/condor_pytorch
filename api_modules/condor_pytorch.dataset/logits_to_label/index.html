@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="Garrett Jenkinson">
+  <link rel="canonical" href="http://GarrettJenkinson.github.io/condor_pytorch/api_modules/condor_pytorch.dataset/logits_to_label/">
+  <link rel="shortcut icon" href="../../../img/favicon.ico">
+  <title>condor_pytorch.dataset - condor_pytorch</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../../../css/theme.css" />
+  <link rel="stylesheet" href="../../../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  <link href="../../../extra.css" rel="stylesheet" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "condor_pytorch.dataset";
+    var mkdocs_page_input_path = "api_modules/condor_pytorch.dataset/logits_to_label.md";
+    var mkdocs_page_url = "/condor_pytorch/api_modules/condor_pytorch.dataset/logits_to_label/";
+  </script>
+  
+  <script src="../../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="../../.." class="icon icon-home"> condor_pytorch</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../..">Home</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Tutorials</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../../tutorials/mnist/">MNIST</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../../tutorials/poker/">Poker Hands</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">API</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="../../../api_subpackages/condor_pytorch.dataset/">condor_pytorch.dataset</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../../api_subpackages/condor_pytorch.losses/">condor_pytorch.losses</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../../api_subpackages/condor_pytorch.activations/">condor_pytorch.activations</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../../api_subpackages/condor_pytorch.metrics/">condor_pytorch.metrics</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../condor_pytorch.losses/CondorOrdinalCrossEntropy/">condor_pytorch.losses</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../condor_pytorch.activations/ordinal_softmax/">condor_pytorch.activations</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../label_to_levels/">condor_pytorch.dataset</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../levels_from_labelbatch/">condor_pytorch.dataset</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">condor_pytorch.dataset</a>
+    <ul class="current">
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../proba_to_label/">condor_pytorch.dataset</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../condor_pytorch.metrics/earth_movers_distance/">condor_pytorch.metrics</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../condor_pytorch.metrics/mean_absolute_error/">condor_pytorch.metrics</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../condor_pytorch.metrics/ordinal_accuracy/">condor_pytorch.metrics</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../condor_pytorch.metrics/ordinal_softmax/">condor_pytorch.metrics</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../../installation/">Installation</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../../CHANGELOG/">Changelog</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../../citing/">Citing</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../../license/">License</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../..">condor_pytorch</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>API &raquo;</li>
+        
+      
+    
+    <li>condor_pytorch.dataset</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/GarrettJenkinson/condor_pytorch/edit/master/docs/api_modules/condor_pytorch.dataset/logits_to_label.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <h2 id="logits_to_label">logits_to_label</h2>
+<p><em>logits_to_label(logits)</em></p>
+<p>Converts predicted logits from extended binary format
+    to integer class labels</p>
+<p><strong>Parameters</strong></p>
+<ul>
+<li>
+<p><code>logits</code> : torch.tensor, shape(n_examples, n_labels-1)</p>
+<p>Torch tensor consisting of probabilities returned by ORCA model.</p>
+</li>
+</ul>
+<p><strong>Examples</strong></p>
+<pre><code>    &gt;&gt;&gt; # 3 training examples, 6 classes
+    &gt;&gt;&gt; logits = torch.tensor([[ 0.934, -0.861,  0.323, -0.492, -0.295],
+    ...                        [-0.496,  0.485,  0.267,  0.124, -0.058],
+    ...                        [ 0.985,  0.967, -0.920,  0.819, -0.506]])
+    &gt;&gt;&gt; logits_to_label(logits)
+    tensor([1, 0, 2])
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../proba_to_label/" class="btn btn-neutral float-right" title="condor_pytorch.dataset">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../levels_from_labelbatch/" class="btn btn-neutral" title="condor_pytorch.dataset"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+      <p>Copyright &copy; 2021 <a href="http://github.com/GarrettJenkinson">Garrett Jenkinson</a></p>
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/GarrettJenkinson/condor_pytorch/" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../levels_from_labelbatch/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../proba_to_label/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '../../..';</script>
+    <script src="../../../js/theme_extra.js" defer></script>
+    <script src="../../../js/theme.js" defer></script>
+      <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML" defer></script>
+      <script src="../../../mathjaxhelper.js" defer></script>
+      <script src="../../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
