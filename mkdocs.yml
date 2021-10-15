@@ -34,6 +34,7 @@ nav:
           - condor_pytorch.dataset: api_subpackages/condor_pytorch.dataset.md
           - condor_pytorch.losses: api_subpackages/condor_pytorch.losses.md
           - condor_pytorch.activations: api_subpackages/condor_pytorch.activations.md
+          - condor_pytorch.metrics: api_subpackages/condor_pytorch.metrics.md
           - condor_pytorch.losses: api_modules/condor_pytorch.losses/CondorOrdinalCrossEntropy.md
           - condor_pytorch.activations: api_modules/condor_pytorch.activations/ordinal_softmax.md
           - condor_pytorch.dataset: api_modules/condor_pytorch.dataset/label_to_levels.md
@@ -43,7 +44,7 @@ nav:
           - condor_pytorch.metrics: api_modules/condor_pytorch.metrics/earth_movers_distance.md
           - condor_pytorch.metrics: api_modules/condor_pytorch.metrics/mean_absolute_error.md
           - condor_pytorch.metrics: api_modules/condor_pytorch.metrics/ordinal_accuracy.md
-          - condor_pytorch.metrics: api_subpackages/condor_pytorch.metrics.md
+          - condor_pytorch.metrics:  api_modules/condor_pytorch.metrics/ordinal_softmax.md
     - Installation: installation.md
     - Changelog: CHANGELOG.md
     - Citing: citing.md
