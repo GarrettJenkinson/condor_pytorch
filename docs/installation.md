@@ -16,7 +16,11 @@ You can install the latest stable release of `condor_pytorch` directly from Pyth
 ```bash
 pip install condor-pytorch
 ```
+The dependencies can be pip installed also using the included `requirements.txt`:
 
+```bash
+pip install -r requirements.txt
+```
 
 ## Latest GitHub Source Code
 
