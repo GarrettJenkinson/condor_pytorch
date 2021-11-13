@@ -37,6 +37,13 @@ You can install the latest stable release of `condor_pytorch` directly from Pyth
 ```bash
 pip install condor-pytorch
 ```
+
+The dependencies can also be pip installed also using the included `requirements.txt`:
+
+```bash
+pip install -r requirements.txt
+```
+
 We also provide Dockerfile's to help get up and started quickly with `condor_pytorch`.
 The cpu image can be built and ran as follows, with tutorial jupyter notebooks
 built in.
