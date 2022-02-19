@@ -1,6 +1,6 @@
 ## ordinal_accuracy
 
-*ordinal_accuracy(logits, levels, tolerance=0, reduction='mean')*
+*ordinal_accuracy(logits, levels, device='cpu', tolerance=0, reduction='mean')*
 
 Computes the accuracy with a tolerance for ordinal error.
 
@@ -15,6 +15,9 @@ Computes the accuracy with a tolerance for ordinal error.
 
     True labels represented as extended binary vectors
     (via `condor_pytorch.dataset.levels_from_labelbatch`).
+
+    device: 'cpu', 'cuda', or None (default='cpu')
+    If GPUs are utilized, then the device should be passed accordingly.
 
 
 - `tolerance` : integer

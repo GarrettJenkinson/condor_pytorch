@@ -1,4 +1,4 @@
-condor_pytorch version: 0.1.0-dev
+condor_pytorch version: 1.0.0
 ## logits_to_label
 
 *logits_to_label(logits)*

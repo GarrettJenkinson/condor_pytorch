@@ -38,6 +38,10 @@ print('Number of features:', train_features.shape[1])
 print('Number of training examples:', train_features.shape[0])
 ```
 
+    Number of features: 11
+    Number of training examples: 25010
+
+
 
 ```python
 test_df = pd.read_csv("https://archive.ics.uci.edu/ml/machine-learning-databases/poker/poker-hand-testing.data", header=None)
@@ -48,6 +52,9 @@ test_labels = test_df.loc[:, 10]
 
 print('Number of test examples:', test_features.shape[0])
 ```
+
+    Number of test examples: 1000000
+
 
 Standardize features:
 
@@ -105,6 +112,9 @@ DEVICE = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 print('Training on', DEVICE)
 ```
 
+    Training on cpu
+
+
 
 ```python
 from torch.utils.data import Dataset
@@ -156,6 +166,10 @@ for inputs, labels in train_loader:
     break
 ```
 
+    Input batch dimensions: torch.Size([128, 11])
+    Input label dimensions: torch.Size([128])
+
+
 ## 2 - Equipping MLP with CONDOR layer
 
 In this section, we are using  `condor_pytorch` to outfit a multilayer perceptron for ordinal regression. Note that the CONDOR method only requires replacing the last (output) layer, which is typically a fully-connected layer, by the CONDOR layer with one fewer node.
@@ -205,14 +219,14 @@ During training, all you need to do is to
 2) Apply the CONDOR loss (also provided via `condor_pytorch`):
 
 ```python
-        cost = CondorOrdinalCrossEntropy(logits, levels)
+        cost = condor_negloglikeloss(logits, levels)
 ```
 
 
 
 ```python
 from condor_pytorch.dataset import levels_from_labelbatch
-from condor_pytorch.losses import CondorOrdinalCrossEntropy
+from condor_pytorch.losses import condor_negloglikeloss
 
 
 for epoch in range(num_epochs):
@@ -230,7 +244,7 @@ for epoch in range(num_epochs):
         logits = model(features)
         
         #### CONDOR loss 
-        cost = cost = CondorOrdinalCrossEntropy(logits, levels)
+        cost = cost = condor_negloglikeloss(logits, levels)
         ###--------------------------------------------------------------------###   
         
         
@@ -244,6 +258,28 @@ for epoch in range(num_epochs):
                    %(epoch+1, num_epochs, batch_idx, 
                      len(train_loader), cost))
 ```
+
+    Epoch: 001/020 | Batch 000/196 | Cost: 1.1676
+    Epoch: 002/020 | Batch 000/196 | Cost: 1.1595
+    Epoch: 003/020 | Batch 000/196 | Cost: 0.5821
+    Epoch: 004/020 | Batch 000/196 | Cost: 0.2216
+    Epoch: 005/020 | Batch 000/196 | Cost: 0.1225
+    Epoch: 006/020 | Batch 000/196 | Cost: 0.1025
+    Epoch: 007/020 | Batch 000/196 | Cost: 0.0678
+    Epoch: 008/020 | Batch 000/196 | Cost: 0.0501
+    Epoch: 009/020 | Batch 000/196 | Cost: 0.0422
+    Epoch: 010/020 | Batch 000/196 | Cost: 0.0219
+    Epoch: 011/020 | Batch 000/196 | Cost: 0.0082
+    Epoch: 012/020 | Batch 000/196 | Cost: 0.0158
+    Epoch: 013/020 | Batch 000/196 | Cost: 0.0144
+    Epoch: 014/020 | Batch 000/196 | Cost: 0.0032
+    Epoch: 015/020 | Batch 000/196 | Cost: 0.0238
+    Epoch: 016/020 | Batch 000/196 | Cost: 0.0434
+    Epoch: 017/020 | Batch 000/196 | Cost: 0.0112
+    Epoch: 018/020 | Batch 000/196 | Cost: 0.0018
+    Epoch: 019/020 | Batch 000/196 | Cost: 0.0230
+    Epoch: 020/020 | Batch 000/196 | Cost: 0.0011
+
 
 ## 4 -- Evaluate model
 
@@ -305,3 +341,9 @@ print(f'Accuracy tolerance 0 (train/test): {train_acc:.2f} | {test_acc:.2f}')
 print(f'Accuracy tolerance 1 (train/test): {train_acc1:.2f} | {test_acc1:.2f}')
 print(f'Earth movers distance (train/test): {train_emd:.3f} | {test_emd:.3f}')
 ```
+
+    Mean absolute error (train/test): 0.00 | 0.00
+    Accuracy tolerance 0 (train/test): 1.00 | 1.00
+    Accuracy tolerance 1 (train/test): 1.00 | 1.00
+    Earth movers distance (train/test): 0.005 | 0.004
+

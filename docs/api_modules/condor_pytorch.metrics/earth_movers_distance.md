@@ -1,6 +1,6 @@
 ## earth_movers_distance
 
-*earth_movers_distance(logits, levels, reduction='mean')*
+*earth_movers_distance(logits, levels, device='cpu', reduction='mean')*
 
 Computes the Earth Movers Distance
 
@@ -15,6 +15,9 @@ Computes the Earth Movers Distance
 
     True labels represented as extended binary vectors
     (via `condor_pytorch.dataset.levels_from_labelbatch`).
+
+    device: 'cpu', 'cuda', or None (default='cpu')
+    If GPUs are utilized, then the device should be passed accordingly.
 
 
 - `reduction` : str or None (default='mean')
