@@ -22,12 +22,12 @@ The changelog for the current development version is available at
 
 - None.
 
-### 1.0.0 (10/14/2021)
+### 1.0.1 (11/01/2021)
 
 ##### Downloads
 
-- [Source code (zip)](https://github.com/GarrettJenkinson/condor_pytorch/archive/v1.0.0.zip)
-- [Source code (tar.gz)](https://github.com/GarrettJenkinson/condor_pytorch/archive/v1.0.0.tar.gz)
+- [Source code (zip)](https://github.com/GarrettJenkinson/condor_pytorch/archive/v1.0.1.zip)
+- [Source code (tar.gz)](https://github.com/GarrettJenkinson/condor_pytorch/archive/v1.0.1.tar.gz)
 
 ##### New Features
 

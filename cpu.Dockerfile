@@ -33,4 +33,4 @@ EXPOSE 8888
 
 RUN python3 -m ipykernel.kernelspec
 
-CMD ["bash", "-c", "source /etc/condor_pytorch/docker_bashrc && jupyter notebook --notebook-dir=/condor --ip 0.0.0.0 --no-browser --allow-root"]
+CMD ["bash", "-c", "jupyter notebook --notebook-dir=/condor --ip 0.0.0.0 --no-browser --allow-root"]

@@ -1,9 +1,3 @@
-# Garrett Jenkinson 2021
-# condor_pytorch
-# Author: Garrett Jenkinson <github.com/GarrettJenkinson>
-#
-# License: MIT
-
 import torch.nn.functional as F
 import torch
 from .activations import ordinal_softmax

@@ -1,4 +1,3 @@
-# Garrett Jenkinson 2021
 import torch.nn.functional as F
 import torch
 

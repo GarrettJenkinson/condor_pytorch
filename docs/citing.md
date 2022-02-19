@@ -13,3 +13,6 @@ author = "Garrett Jenkinson and Kia Khezeli and Gavin R. Oliver and John Kalanta
 keywords = "Deep learning, Ordinal regression, neural networks, Machine learning, Biometrics"
 }
 ```
+
+**Acknowledgments**: Many thanks to [the CORAL ordinal authors](https://github.com/ck37/coral-ordinal) and 
+[the CORAL pytorch authors](https://github.com/Raschka-research-group/coral_pytorch) whose repos provided a roadmap for this codebase.

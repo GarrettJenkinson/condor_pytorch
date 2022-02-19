@@ -1,9 +1,3 @@
-# Garrett Jenkinson 2021
-# orca_pytorch
-# Author: Garrett Jenkinson <github.com/GarrettJenkinson>
-#
-# License: MIT
-
 from .version import __version__
 
 from .activations import ordinal_softmax
