@@ -148,7 +148,7 @@
             <div class="section">
               
                 <h2 id="earth_movers_distance">earth_movers_distance</h2>
-<p><em>earth_movers_distance(logits, levels, reduction='mean')</em></p>
+<p><em>earth_movers_distance(logits, levels, device='cpu', reduction='mean')</em></p>
 <p>Computes the Earth Movers Distance</p>
 <p><strong>Parameters</strong></p>
 <ul>
@@ -160,6 +160,8 @@
 <p><code>levels</code> : torch.tensor, shape(num_examples, num_classes-1)</p>
 <p>True labels represented as extended binary vectors
 (via <code>condor_pytorch.dataset.levels_from_labelbatch</code>).</p>
+<p>device: 'cpu', 'cuda', or None (default='cpu')
+If GPUs are utilized, then the device should be passed accordingly.</p>
 </li>
 <li>
 <p><code>reduction</code> : str or None (default='mean')</p>

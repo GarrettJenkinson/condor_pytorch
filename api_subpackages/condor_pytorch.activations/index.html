@@ -147,13 +147,16 @@
           <div role="main">
             <div class="section">
               
-                <p>condor_pytorch version: 0.1.0-dev</p>
+                <p>condor_pytorch version: 1.0.0</p>
 <h2 id="ordinal_softmax">ordinal_softmax</h2>
-<p><em>ordinal_softmax(x)</em></p>
+<p><em>ordinal_softmax(x, device='cpu')</em></p>
 <p>Convert the ordinal logit output to label probabilities.</p>
 <p><strong>Parameters</strong></p>
 <p>x: torch.Tensor, shape=(num_samples,num_classes-1)
     Logit output of the final Dense(num_classes-1) layer.</p>
+<pre><code>device: 'cpu', 'cuda', or None (default='cpu')
+If GPUs are utilized, then the device should be passed accordingly.
+</code></pre>
 <p><strong>Returns</strong></p>
 <p>probs_tensor: torch.Tensor, shape=(num_samples, num_classes)
     Probabilities of each class (columns) for each

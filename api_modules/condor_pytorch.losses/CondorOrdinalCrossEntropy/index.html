@@ -149,43 +149,43 @@
               
                 <h2 id="condorordinalcrossentropy">CondorOrdinalCrossEntropy</h2>
 <p><em>CondorOrdinalCrossEntropy(logits, levels, importance_weights=None, reduction='mean')</em></p>
-<p>Computes the CONDOR loss described in</p>
-<pre><code>CONDOR TBD.
+<p>computes the condor loss described in</p>
+<pre><code>condor tbd.
 </code></pre>
-<p><strong>Parameters</strong></p>
+<p><strong>parameters</strong></p>
 <ul>
 <li>
 <p><code>logits</code> : torch.tensor, shape(num_examples, num_classes-1)</p>
-<p>Outputs of the CONDOR layer.</p>
+<p>outputs of the condor layer.</p>
 </li>
 <li>
 <p><code>levels</code> : torch.tensor, shape(num_examples, num_classes-1)</p>
-<p>True labels represented as extended binary vectors
+<p>true labels represented as extended binary vectors
 (via <code>condor_pytorch.dataset.levels_from_labelbatch</code>).</p>
 </li>
 <li>
-<p><code>importance_weights</code> : torch.tensor, shape=(num_classes-1,) (default=None)</p>
-<p>Optional weights for the different labels in levels.
-A tensor of ones, i.e.,
+<p><code>importance_weights</code> : torch.tensor, shape=(num_classes-1,) (default=none)</p>
+<p>optional weights for the different labels in levels.
+a tensor of ones, i.e.,
 <code>torch.ones(num_classes-1, dtype=torch.float32)</code>
-will result in uniform weights that have the same effect as None.</p>
+will result in uniform weights that have the same effect as none.</p>
 </li>
 <li>
-<p><code>reduction</code> : str or None (default='mean')</p>
-<p>If 'mean' or 'sum', returns the averaged or summed loss value across
-all data points (rows) in logits. If None, returns a vector of
+<p><code>reduction</code> : str or none (default='mean')</p>
+<p>if 'mean' or 'sum', returns the averaged or summed loss value across
+all data points (rows) in logits. if none, returns a vector of
 shape (num_examples,)</p>
 </li>
 </ul>
-<p><strong>Returns</strong></p>
+<p><strong>returns</strong></p>
 <ul>
 <li>
 <p><code>loss</code> : torch.tensor</p>
-<p>A torch.tensor containing a single loss value (if <code>reduction='mean'</code> or '<code>sum'</code>)
-or a loss value for each data record (if <code>reduction=None</code>).</p>
+<p>a torch.tensor containing a single loss value (if <code>reduction='mean'</code> or '<code>sum'</code>)
+or a loss value for each data record (if <code>reduction=none</code>).</p>
 </li>
 </ul>
-<p><strong>Examples</strong></p>
+<p><strong>examples</strong></p>
 <pre><code>    &gt;&gt;&gt; import torch
     &gt;&gt;&gt; levels = torch.tensor(
     ...    [[1., 1., 0., 0.],

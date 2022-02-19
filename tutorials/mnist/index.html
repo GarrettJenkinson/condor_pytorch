@@ -214,6 +214,58 @@ for images, labels in train_loader:
     print('Image label dimensions:', labels.shape)
     break
 </code></pre>
+<pre><code>0.1%
+
+Training on cpu
+Downloading http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz
+Downloading http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz to data/MNIST/raw/train-images-idx3-ubyte.gz
+
+
+100.0%
+
+
+Extracting data/MNIST/raw/train-images-idx3-ubyte.gz to data/MNIST/raw
+
+
+102.8%
+
+
+Downloading http://yann.lecun.com/exdb/mnist/train-labels-idx1-ubyte.gz
+Downloading http://yann.lecun.com/exdb/mnist/train-labels-idx1-ubyte.gz to data/MNIST/raw/train-labels-idx1-ubyte.gz
+Extracting data/MNIST/raw/train-labels-idx1-ubyte.gz to data/MNIST/raw
+
+Downloading http://yann.lecun.com/exdb/mnist/t10k-images-idx3-ubyte.gz
+
+
+
+19.9%
+
+Downloading http://yann.lecun.com/exdb/mnist/t10k-images-idx3-ubyte.gz to data/MNIST/raw/t10k-images-idx3-ubyte.gz
+
+
+100.0%
+
+
+Extracting data/MNIST/raw/t10k-images-idx3-ubyte.gz to data/MNIST/raw
+
+Downloading http://yann.lecun.com/exdb/mnist/t10k-labels-idx1-ubyte.gz
+Downloading http://yann.lecun.com/exdb/mnist/t10k-labels-idx1-ubyte.gz to data/MNIST/raw/t10k-labels-idx1-ubyte.gz
+
+
+112.7%
+
+Extracting data/MNIST/raw/t10k-labels-idx1-ubyte.gz to data/MNIST/raw
+
+Processing...
+Done!
+Image batch dimensions: torch.Size([128, 1, 28, 28])
+Image label dimensions: torch.Size([128])
+
+
+
+/Users/m191034/opt/anaconda3/envs/condor_pytorch/lib/python3.9/site-packages/torchvision/datasets/mnist.py:502: UserWarning: The given NumPy array is not writeable, and PyTorch does not support non-writeable tensors. This means you can write to the underlying (supposedly non-writeable) NumPy array using the tensor. You may want to copy the array to protect its data or make it writeable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at  /tmp/pip-req-build-5cal76n6/torch/csrc/utils/tensor_numpy.cpp:180.)
+  return torch.from_numpy(parsed.astype(m[2], copy=False)).view(*s)
+</code></pre>
 <h2 id="2-equipping-cnn-with-condor-layer">2 - Equipping CNN with CONDOR layer</h2>
 <p>In this section, we are using  <code>condor_pytorch</code> to outfit a convolutional neural network for ordinal regression. Note that the CONDOR method only requires replacing the last (output) layer, which is typically a fully-connected layer, by the CONDOR layer.</p>
 <p>Using the <code>Sequential</code> API, we specify the CORAl layer as </p>
@@ -264,10 +316,10 @@ optimizer = torch.optim.Adam(model.parameters())
                                         num_classes=NUM_CLASSES)
 </code></pre>
 <p>2) Apply the CONDOR loss (also provided via <code>condor_pytorch</code>):</p>
-<pre><code class="language-python">        cost = CondorOrdinalCrossEntropy(logits, levels)
+<pre><code class="language-python">        cost = condor_negloglikeloss(logits, levels)
 </code></pre>
 <pre><code class="language-python">from condor_pytorch.dataset import levels_from_labelbatch
-from condor_pytorch.losses import CondorOrdinalCrossEntropy
+from condor_pytorch.losses import condor_negloglikeloss
 
 
 for epoch in range(num_epochs):
@@ -284,7 +336,7 @@ for epoch in range(num_epochs):
         logits = model(features)
 
         #### CONDOR loss 
-        cost = cost = CondorOrdinalCrossEntropy(logits, levels)
+        cost = cost = condor_negloglikeloss(logits, levels)
         ###--------------------------------------------------------------------###   
 
 
@@ -297,6 +349,41 @@ for epoch in range(num_epochs):
             print ('Epoch: %03d/%03d | Batch %03d/%03d | Cost: %.4f' 
                    %(epoch+1, num_epochs, batch_idx, 
                      len(train_loader), cost))
+</code></pre>
+<pre><code>/Users/m191034/opt/anaconda3/envs/condor_pytorch/lib/python3.9/site-packages/torch/nn/functional.py:718: UserWarning: Named tensors and all their associated APIs are an experimental feature and subject to change. Please do not use them for anything important until they are released as stable. (Triggered internally at  /tmp/pip-req-build-5cal76n6/c10/core/TensorImpl.h:1156.)
+  return torch.max_pool2d(input, kernel_size, stride, padding, dilation, ceil_mode)
+
+
+Epoch: 001/010 | Batch 000/468 | Cost: 3.9491
+Epoch: 001/010 | Batch 200/468 | Cost: 0.7655
+Epoch: 001/010 | Batch 400/468 | Cost: 0.4426
+Epoch: 002/010 | Batch 000/468 | Cost: 0.5158
+Epoch: 002/010 | Batch 200/468 | Cost: 0.3747
+Epoch: 002/010 | Batch 400/468 | Cost: 0.3749
+Epoch: 003/010 | Batch 000/468 | Cost: 0.3082
+Epoch: 003/010 | Batch 200/468 | Cost: 0.2842
+Epoch: 003/010 | Batch 400/468 | Cost: 0.2252
+Epoch: 004/010 | Batch 000/468 | Cost: 0.1634
+Epoch: 004/010 | Batch 200/468 | Cost: 0.2194
+Epoch: 004/010 | Batch 400/468 | Cost: 0.2034
+Epoch: 005/010 | Batch 000/468 | Cost: 0.2358
+Epoch: 005/010 | Batch 200/468 | Cost: 0.2009
+Epoch: 005/010 | Batch 400/468 | Cost: 0.0824
+Epoch: 006/010 | Batch 000/468 | Cost: 0.1473
+Epoch: 006/010 | Batch 200/468 | Cost: 0.1436
+Epoch: 006/010 | Batch 400/468 | Cost: 0.2141
+Epoch: 007/010 | Batch 000/468 | Cost: 0.3440
+Epoch: 007/010 | Batch 200/468 | Cost: 0.1331
+Epoch: 007/010 | Batch 400/468 | Cost: 0.1123
+Epoch: 008/010 | Batch 000/468 | Cost: 0.1986
+Epoch: 008/010 | Batch 200/468 | Cost: 0.1621
+Epoch: 008/010 | Batch 400/468 | Cost: 0.1798
+Epoch: 009/010 | Batch 000/468 | Cost: 0.1393
+Epoch: 009/010 | Batch 200/468 | Cost: 0.2675
+Epoch: 009/010 | Batch 400/468 | Cost: 0.1482
+Epoch: 010/010 | Batch 000/468 | Cost: 0.1138
+Epoch: 010/010 | Batch 200/468 | Cost: 0.1673
+Epoch: 010/010 | Batch 400/468 | Cost: 0.1629
 </code></pre>
 <h2 id="4-evaluate-model">4 -- Evaluate model</h2>
 <p>Finally, after model training, we can evaluate the performance of the model. For example, via the mean absolute error and mean squared error measures.</p>
@@ -345,6 +432,11 @@ test_mae, test_acc, test_acc1, test_emd = compute_mae_and_acc(model, test_loader
 print(f'Accuracy tolerance 0 (train/test): {train_acc:.2f} | {test_acc:.2f}')
 print(f'Accuracy tolerance 1 (train/test): {train_acc1:.2f} | {test_acc1:.2f}')
 print(f'Earth movers distance (train/test): {train_emd:.3f} | {test_emd:.3f}')
+</code></pre>
+<pre><code>Mean absolute error (train/test): 0.15 | 0.15
+Accuracy tolerance 0 (train/test): 0.96 | 0.96
+Accuracy tolerance 1 (train/test): 0.97 | 0.97
+Earth movers distance (train/test): 0.251 | 0.247
 </code></pre>
               
             </div>

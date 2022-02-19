@@ -2,107 +2,112 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>http://GarrettJenkinson.github.io/condor_pytorch/</loc>
-         <lastmod>2021-11-01</lastmod>
+         <lastmod>2022-02-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://GarrettJenkinson.github.io/condor_pytorch/CHANGELOG/</loc>
-         <lastmod>2021-11-01</lastmod>
+         <lastmod>2022-02-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://GarrettJenkinson.github.io/condor_pytorch/citing/</loc>
-         <lastmod>2021-11-01</lastmod>
+         <lastmod>2022-02-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://GarrettJenkinson.github.io/condor_pytorch/installation/</loc>
-         <lastmod>2021-11-01</lastmod>
+         <lastmod>2022-02-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://GarrettJenkinson.github.io/condor_pytorch/license/</loc>
-         <lastmod>2021-11-01</lastmod>
+         <lastmod>2022-02-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://GarrettJenkinson.github.io/condor_pytorch/api_modules/condor_pytorch.activations/ordinal_softmax/</loc>
-         <lastmod>2021-11-01</lastmod>
+         <lastmod>2022-02-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://GarrettJenkinson.github.io/condor_pytorch/api_modules/condor_pytorch.dataset/label_to_levels/</loc>
-         <lastmod>2021-11-01</lastmod>
+         <lastmod>2022-02-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://GarrettJenkinson.github.io/condor_pytorch/api_modules/condor_pytorch.dataset/levels_from_labelbatch/</loc>
-         <lastmod>2021-11-01</lastmod>
+         <lastmod>2022-02-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://GarrettJenkinson.github.io/condor_pytorch/api_modules/condor_pytorch.dataset/logits_to_label/</loc>
-         <lastmod>2021-11-01</lastmod>
+         <lastmod>2022-02-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://GarrettJenkinson.github.io/condor_pytorch/api_modules/condor_pytorch.dataset/proba_to_label/</loc>
-         <lastmod>2021-11-01</lastmod>
+         <lastmod>2022-02-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://GarrettJenkinson.github.io/condor_pytorch/api_modules/condor_pytorch.losses/CondorOrdinalCrossEntropy/</loc>
-         <lastmod>2021-11-01</lastmod>
+         <lastmod>2022-02-19</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>http://GarrettJenkinson.github.io/condor_pytorch/api_modules/condor_pytorch.losses/condor_negloglikeloss/</loc>
+         <lastmod>2022-02-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://GarrettJenkinson.github.io/condor_pytorch/api_modules/condor_pytorch.metrics/earth_movers_distance/</loc>
-         <lastmod>2021-11-01</lastmod>
+         <lastmod>2022-02-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://GarrettJenkinson.github.io/condor_pytorch/api_modules/condor_pytorch.metrics/mean_absolute_error/</loc>
-         <lastmod>2021-11-01</lastmod>
+         <lastmod>2022-02-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://GarrettJenkinson.github.io/condor_pytorch/api_modules/condor_pytorch.metrics/ordinal_accuracy/</loc>
-         <lastmod>2021-11-01</lastmod>
+         <lastmod>2022-02-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://GarrettJenkinson.github.io/condor_pytorch/api_modules/condor_pytorch.metrics/ordinal_softmax/</loc>
-         <lastmod>2021-11-01</lastmod>
+         <lastmod>2022-02-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://GarrettJenkinson.github.io/condor_pytorch/api_subpackages/condor_pytorch.activations/</loc>
-         <lastmod>2021-11-01</lastmod>
+         <lastmod>2022-02-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://GarrettJenkinson.github.io/condor_pytorch/api_subpackages/condor_pytorch.dataset/</loc>
-         <lastmod>2021-11-01</lastmod>
+         <lastmod>2022-02-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://GarrettJenkinson.github.io/condor_pytorch/api_subpackages/condor_pytorch.losses/</loc>
-         <lastmod>2021-11-01</lastmod>
+         <lastmod>2022-02-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://GarrettJenkinson.github.io/condor_pytorch/api_subpackages/condor_pytorch.metrics/</loc>
-         <lastmod>2021-11-01</lastmod>
+         <lastmod>2022-02-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://GarrettJenkinson.github.io/condor_pytorch/tutorials/mnist/</loc>
-         <lastmod>2021-11-01</lastmod>
+         <lastmod>2022-02-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>http://GarrettJenkinson.github.io/condor_pytorch/tutorials/poker/</loc>
-         <lastmod>2021-11-01</lastmod>
+         <lastmod>2022-02-19</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
