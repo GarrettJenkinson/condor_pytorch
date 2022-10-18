@@ -46,7 +46,7 @@ def label_to_levels(label, num_classes, dtype=torch.float32):
         int_label = label
 
     levels = [1]*int_label + [0]*(num_classes - 1 - int_label)
-    levels = torch.tensor(levels, dtype=dtype)
+    levels = torch.tensor(levels, dtype=dtype, device=label.device)
     return levels
 
 
