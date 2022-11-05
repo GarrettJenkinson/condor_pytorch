@@ -44,7 +44,7 @@ def condor_negloglikeloss(logits, labels, reduction='mean'):
     if not logits.shape == labels.shape:
         raise ValueError("Please ensure that logits (%s) has the same shape as labels (%s). "
                          % (logits.shape, labels.shape))
-    piLab = torch.cat([torch.ones((labels.shape[0],1)),labels[:,:-1]],dim=1)
+    piLab = torch.cat([torch.ones((labels.shape[0],1), device=labels.device),labels[:,:-1]],dim=1)
 
     # The logistic loss formula from above is
     #   x - x * z + log(1 + exp(-x))
@@ -54,7 +54,7 @@ def condor_negloglikeloss(logits, labels, reduction='mean'):
     #   max(x, 0) - x * z + log(1 + exp(-abs(x)))
     # To allow computing gradients at zero, we define custom versions of max and
     # abs functions.
-    zeros = torch.zeros_like(logits, dtype=logits.dtype)
+    zeros = torch.zeros_like(logits, dtype=logits.dtype, device=logits.device)
     cond = (logits >= zeros)
     cond2 = (piLab > zeros)
     relu_logits = torch.where(cond, logits, zeros)
